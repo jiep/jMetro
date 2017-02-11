@@ -7,51 +7,79 @@
 <link rel="stylesheet" th:href="@{~/node_modules/bulma/css/bulma.css}" />
 </head>
 
-<body class="container is-fluid">
-	<div class="container">
+<body>
+	<section class="hero is-primary">
 		<div class="hero-body">
 			<div class="container">
 				<h1 class="title">JMetro</h1>
 				<h2 class="subtitle">Calcula la ruta mínima entre estaciones
-				del metro de Madrid</h2>
+					del metro de Madrid</h2>
 			</div>
 		</div>
-		
+	</section>
 
-		<section class="container is-fluid">
-			<div class="message is-danger" th:if="${error} != null">
-				<div class="message-header">
-					<p><strong>Error</strong></p>
+	<section class="section">
+		<div class="message is-danger" th:if="${error} != null">
+			<div class="message-header">
+				<p><strong>Error</strong></p>
+			</div>
+			<div th:text="${error}" class="message-body"></div>
+		</div>
+		<div class="columns">
+			<div class="column is-one-third">
+				<form th:action="@{/getShortestPath}" method="post">
+					<div class="control is-grouped">
+						<div class="control-label">
+							<label class="label">Estación de origen</label>
+						</div>
+						<p class="control">
+							<span class="select"> <select class="select" name="source">
+									<option th:each="station, i : ${stations}" th:value="${i.index}"
+										th:text="${station}"></option>
+							</select>
+							</span>
+						</p>
+					</div>
+					<div class="control is-grouped">
+						<div class="control-label">
+							<label class="label">Estación de destino</label>
+						</div>
+						<p class="control">
+							<span class="select"> <select class="select" name="target">
+									<option th:each="station, i : ${stations}" th:value="${i.index}"
+										th:text="${station}"></option>
+							</select>
+							</span>
+						</p>
+					</div>
+					<div class="control is-grouped is-pulled-right">
+						<button class="button">Calcular ruta mínima</button>
+					</div>
+				</form>
+				
+				
+			</div>
+			<div class="column">
+				<div th:if="${showRoute}">
+					<div class="is-pulled-right">
+						<h2>Ruta mínima</h2>
+					</div>
+					<table class="table">
+						<tbody>
+							<tr th:each="r : ${route}">
+								<td class="has-text-centered" th:text="${r}"></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="is-pulled-right">
+						<h3 th:text="|La distancia es de ${distance} metros|"></h3>
+					</div>
 				</div>
-				<div th:text="${error}" class="message-body"></div>
 			</div>
-			<form th:action="@{/getShortestPath}" method="post">
-				<label>Estación de origen</label>
-				<p class="control">
-					<span class="select"> 
-						<select class="select" name="source">
-							<option th:each="station, i : ${stations}" th:value="${i.index}" th:text="${station}"></option>
-						</select>
-					</span>
-				</p>
-				<label>Estación de destino</label>
-				<p class="control">
-					<span class="select"> 
-						<select class="select" name="target">
-							<option th:each="station, i : ${stations}" th:value="${i.index}" th:text="${station}"></option>
-						</select>
-					</span>
-				</p>
-				<button class="button">Calcular ruta mínima</button>
-			</form>
-		</section>
-
-		<div th:if="${showRoute}">
-			<h2>Ruta mínima</h2>
-			<p th:each="r : ${route}" th:text="${r}"></p>
-			<h3 th:text="|La distancia es de ${distance} metros|"></h3>
 		</div>
-	</div>
+	</section>
+
+
 </body>
 
 </html>
