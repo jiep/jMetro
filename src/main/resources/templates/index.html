@@ -1,0 +1,57 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<head>
+<title>JMetro</title>
+<link rel="stylesheet" th:href="@{~/node_modules/bulma/css/bulma.css}" />
+</head>
+
+<body class="container is-fluid">
+	<div class="container">
+		<div class="hero-body">
+			<div class="container">
+				<h1 class="title">JMetro</h1>
+				<h2 class="subtitle">Calcula la ruta mínima entre estaciones
+				del metro de Madrid</h2>
+			</div>
+		</div>
+		
+
+		<section class="container is-fluid">
+			<div class="message is-danger" th:if="${error} != null">
+				<div class="message-header">
+					<p><strong>Error</strong></p>
+				</div>
+				<div th:text="${error}" class="message-body"></div>
+			</div>
+			<form th:action="@{/getShortestPath}" method="post">
+				<label>Estación de origen</label>
+				<p class="control">
+					<span class="select"> 
+						<select class="select" name="source">
+							<option th:each="station, i : ${stations}" th:value="${i.index}" th:text="${station}"></option>
+						</select>
+					</span>
+				</p>
+				<label>Estación de destino</label>
+				<p class="control">
+					<span class="select"> 
+						<select class="select" name="target">
+							<option th:each="station, i : ${stations}" th:value="${i.index}" th:text="${station}"></option>
+						</select>
+					</span>
+				</p>
+				<button class="button">Calcular ruta mínima</button>
+			</form>
+		</section>
+
+		<div th:if="${showRoute}">
+			<h2>Ruta mínima</h2>
+			<p th:each="r : ${route}" th:text="${r}"></p>
+			<h3 th:text="|La distancia es de ${distance} metros|"></h3>
+		</div>
+	</div>
+</body>
+
+</html>
