@@ -36,6 +36,6 @@ jobs:
         for asset in ./*.jar; do
           assets+=("-a" "$asset")
         done
-        hub release create "${assets[@]}" -m "$VERSION" "v$VERSION"
+        hub release create "${assets[@]}" -m "v$VERSION" "v$VERSION"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
