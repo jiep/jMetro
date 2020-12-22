@@ -25,10 +25,10 @@ import com.aebd.jMetro.metro.Metro;
 public class JMetro extends JFrame {
 
 	private Metro m = Metro.getInstance();
-	
+
 	private final String ERROR = "Las estaciones de origen y destino no pueden coincidir";
-		
-	
+
+
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table;
@@ -37,7 +37,7 @@ public class JMetro extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -54,32 +54,32 @@ public class JMetro extends JFrame {
 	 * Create the frame.
 	 */
 	public JMetro() {
-		super("JMetro v.1.0");
+		super("JMetro v1.1");
 		this.setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		
+
 		JPanel panel = new JPanel();
-		
+
 		JScrollPane scrollPane = new JScrollPane();
-		
+
 		JLabel lblNewLabel = new JLabel("Origen:");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		
+
 		final JComboBox comboBox = new JComboBox(m.getNombreEstaciones());
-		
-		
+
+
 		JLabel lblDestino = new JLabel("Destino:");
 		lblDestino.setHorizontalAlignment(SwingConstants.RIGHT);
-		
+
 		final JComboBox comboBox_1 = new JComboBox(m.getNombreEstaciones());
-		
+
 		JButton btnNewButton = new JButton("Calcular ruta m\u00EDnima");
-		
-		
+
+
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -115,7 +115,7 @@ public class JMetro extends JFrame {
 					.addGap(33))
 		);
 		panel.setLayout(gl_panel);
-		
+
 		JPanel panel_1 = new JPanel();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -142,12 +142,12 @@ public class JMetro extends JFrame {
 						.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(12))
 		);
-		
+
 		JLabel lblDistancia = new JLabel("Distancia:");
-		
+
 		final JLabel labelDist = new JLabel("0");
 		labelDist.setHorizontalAlignment(SwingConstants.CENTER);
-		
+
 		JLabel lblMetros = new JLabel("metros");
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
@@ -172,10 +172,10 @@ public class JMetro extends JFrame {
 					.addContainerGap())
 		);
 		panel_1.setLayout(gl_panel_1);
-		
-		
-		
-		
+
+
+
+
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -185,7 +185,7 @@ public class JMetro extends JFrame {
 			}
 		) {
 			/**
-			 * 
+			 *
 			 */
 			private static final long serialVersionUID = 1L;
 			boolean[] columnEditables = new boolean[] {
@@ -198,41 +198,38 @@ public class JMetro extends JFrame {
 		table.getColumnModel().getColumn(0).setResizable(false);
 		scrollPane.setViewportView(table);
 		contentPane.setLayout(gl_contentPane);
-		
+
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				int origen = comboBox.getSelectedIndex();
 				int destino= comboBox_1.getSelectedIndex();
-				
+
 				if(origen == destino) {
 					JOptionPane.showMessageDialog(null, ERROR, "ERROR", JOptionPane.WARNING_MESSAGE);
 				}else{
 
 					LinkedList<String> l = m.rutaMinima(origen, destino);
-					
+
 					labelDist.setText("" + m.getDistancia(origen,destino));
-					
+
 					DefaultTableModel modelo = (DefaultTableModel) table.getModel();
-					
+
 					int a = modelo.getRowCount()-1;
 			        for(int i=a; i>=0;i--){
 			            modelo.removeRow(i);
 			        }
-			        
+
 			        String s;
 			        for(int i = 0; i < l.size(); i++){
 			            s = (String) l.get(i);
 			            Object datos[] = {s};
 			            modelo.addRow(datos);
 			        }
-					
-					
-					
 				}
 			}
 		});
 	}
-	
-	
+
+
 }

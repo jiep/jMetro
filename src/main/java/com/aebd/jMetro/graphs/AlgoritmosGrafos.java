@@ -5,23 +5,23 @@ import com.aebd.jMetro.misc.Maths;
 
 
 public abstract class AlgoritmosGrafos {
-		
+
 	public static class CosteMin {
 		private int vertice, coste;
 
 		public CosteMin() {
 			super();
 		}
-		
+
 		public CosteMin(int v, int c) {
 			vertice = v;
 			coste = c;
 		}
-		
+
 		public int getVertice(){
 			return vertice;
 		}
-		
+
 		public int getCoste(){
 			return coste;
 		}
@@ -34,20 +34,20 @@ public abstract class AlgoritmosGrafos {
 		public Arista() {
 			super();
 		}
-		
+
 		public Arista(int a, int b, int c) {
 			v1 = a;
 			v2 = b;
 			coste = c;
 		}
 	}
-	
+
 	public static void tratar(int i) {};
 
 	/**
 	 * Devuelve un conjunto de aristas que forma un arbol de recubrimiento
 	 * de coste minimo del grafo g
-	 * @return un array con las aristas del arbol de recubrimiento de coste 
+	 * @return un array con las aristas del arbol de recubrimiento de coste
 	 *         minimo
 	 */
 	public static Arista[] arbolDeRecubrimiento(GrafoCostes g) {
@@ -55,7 +55,7 @@ public abstract class AlgoritmosGrafos {
 		boolean[] conectados = new boolean[g.vertices()];
 		CosteMin[] costesBajos = new CosteMin[g.vertices()];
 
-		// Se toma el vertice 0 como primer vertice del arbol de 
+		// Se toma el vertice 0 como primer vertice del arbol de
 		// recubrimiento y se calculan las aristas de coste minimo
 		// desde el vertice 0 a cada uno de los otros
 		for (int i = 0; i < conectados.length; i++) {
@@ -84,7 +84,7 @@ public abstract class AlgoritmosGrafos {
 			aristas[i - 1].v2 =  costesBajos[vertMin].vertice;
 			aristas[i - 1].coste = costesBajos[vertMin].coste;
 			conectados[vertMin]  = true;
-			
+
 			// Se recalculan las aristas de coste minimo entre los vertices
 			// conectados y los no conectados teniendo en cuenta el vertice
 			// recien conectado
@@ -92,7 +92,7 @@ public abstract class AlgoritmosGrafos {
 				if ((!conectados[j]) && (g.coste(vertMin, j) < costesBajos[j].coste)) {
 					costesBajos[j] = new CosteMin(vertMin, g.coste(vertMin, j));
 				}
-			}	
+			}
 		}
 
 		return aristas;
@@ -117,12 +117,12 @@ public abstract class AlgoritmosGrafos {
 			caminos[i].coste = g.coste(fuente, i);
 		}
 
-		// A la fuente se le asigna un coste directo cero 
+		// A la fuente se le asigna un coste directo cero
 		caminos[fuente].vertice = fuente;
 		caminos[fuente].coste = 0;
 		tratados[fuente] = true;
 
-		// Se calculan los costes minimos desde fuente a 
+		// Se calculan los costes minimos desde fuente a
 		// todos los demas vertices
 		for (int j = 0; j < g.vertices() - 1; j++) {
 			//Se determina el nuevo vertice pendiente de coste
@@ -139,7 +139,7 @@ public abstract class AlgoritmosGrafos {
 					}
 			}
 
-			// Se añade el nuevo vertice de coste minimo al conjunto de
+			// Se aÃ±ade el nuevo vertice de coste minimo al conjunto de
 			// los tratados y se actualizan los costes de los caminos en
 			// funcion del nuevo vertice
 			tratados[vertCosteMin] = true;
@@ -170,7 +170,7 @@ public abstract class AlgoritmosGrafos {
 		int v,
 		boolean[] visitados) {
 
-		// El vertice v se marca como visitado	
+		// El vertice v se marca como visitado
 		visitados[v] = true;
 
 		//Se trata el vertice
@@ -190,7 +190,7 @@ public abstract class AlgoritmosGrafos {
 	public void profundidad(Grafo g) {
 		boolean visitados[] = new boolean[g.vertices()];
 
-		// Se inicializa visitados, que se pondra a true a medida que 
+		// Se inicializa visitados, que se pondra a true a medida que
 		// se visiten los vertices.
 		for (int i = 0; i < g.vertices(); i++)
 			visitados[i] = false;
@@ -213,7 +213,7 @@ public abstract class AlgoritmosGrafos {
 		boolean visitados[] = new boolean[g.vertices()];
 		int v; // vertice actual
 
-		// Se inicializa visitados, que se pondra a true a medida que 
+		// Se inicializa visitados, que se pondra a true a medida que
 		// se visiten los vertices.
 		for (int i = 0; i < g.vertices(); i++)
 			visitados[i] = false;
@@ -246,14 +246,14 @@ public abstract class AlgoritmosGrafos {
 				}
 			}
 	}
-	
+
 	public static int[][] floyd(GrafoCostes g, int[][] path){
-		
+
 		int n = g.vertices();
 	 	int[][] ans = new int[n][n];
-	 
+
 	 	Maths.copy(ans, g.getCostes());
-	
+
 	 	for (int k=0; k<n;k++) {
 	 		for (int i=0; i<n; i++) {
 	     		for (int j=0; j<n;j++) {
@@ -266,41 +266,41 @@ public abstract class AlgoritmosGrafos {
 	 	}
 
 		return ans;
-	}	
-	
+	}
+
 	public static LinkedList<Integer> rPath(int i, int j, int[][] path){
 		LinkedList<Integer> recorrido = new LinkedList<Integer>();
 		recorrido.addFirst(j);
-		 
+
 	 	while (path[i][j] != i) {
 			recorrido.addFirst(path[i][j]);
 	 		j = path[i][j];
 	 	}
-	 	
+
 	 	recorrido.addFirst(i);
-	 	
+
 	 	return recorrido;
 	}
-	
+
 	public static int[][] calculePath(int [][] ady){
-		
+
 		int[][] path = new int[ady.length][ady.length];
-		
+
 		for (int i=0; i<ady.length; i++)
 	 		for (int j=0; j<ady.length; j++)
 	 			if (ady[i][j] == Maths.getINFINITO())
 	 				path[i][j] = -1;
 	 			else
 	 				path[i][j] = i;
-		
+
 		for (int i=0; i<ady.length; i++)
 	 		path[i][i] = i;
-		
-		
+
+
 		return path;
 	}
-		
-		
-	
+
+
+
 
 }
