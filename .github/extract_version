@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+
+import re
+import glob
+import sys
+import os
+
+filename = str(glob.glob('*.jar')[0])
+
+m = re.search('jMetro-(.+?)-jar-with-dependencies.jar', filename)
+if not m:
+    print("Nothing found!")
+    sys.exit(1)
+
+version = m.group(1)
+print(version)
+
+newfilename = 'jMetro-{}.jar'.format(version)
+
+os.rename(filename, newfilename)

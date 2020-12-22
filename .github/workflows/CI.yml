@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - v*
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install Maven
+      run: mkdir -p /usr/share/man/man1/ && apt update && apt install -y maven python3
+    - uses: actions/checkout@v2
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Build with Maven
+      run: mvn clean resources:resources assembly:assembly -DdescriptorId=jar-with-dependencies
+
+    - name: Set release
+      run: |
+        mv target/jMetro-*-jar-with-dependencies.jar .
+        chmod +x ./.github/extract_version
+        VERSION=`./.github/extract_version`
+
+        set -x
+        assets=()
+        for asset in ./*.jar report.txt; do
+          assets+=("-a" "$asset")
+        done
+        hub release create "${assets[@]}" -m "$VERSION" "v$VERSION"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
