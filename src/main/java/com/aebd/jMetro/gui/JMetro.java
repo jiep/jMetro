@@ -68,12 +68,12 @@ public class JMetro extends JFrame {
 		JLabel lblNewLabel = new JLabel("Origen:");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
-		final JComboBox comboBox = new JComboBox(m.getNombreEstaciones());
+		final JComboBox<String> comboBox = new JComboBox<>(m.getNombreEstaciones());
 
 		JLabel lblDestino = new JLabel("Destino:");
 		lblDestino.setHorizontalAlignment(SwingConstants.RIGHT);
 
-		final JComboBox comboBox_1 = new JComboBox(m.getNombreEstaciones());
+		final JComboBox<String> comboBox_1 = new JComboBox<>(m.getNombreEstaciones());
 
 		JButton btnNewButton = new JButton("Calcular ruta m\u00EDnima");
 
