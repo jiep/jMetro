@@ -3,6 +3,8 @@
 > jMetro is a desktop Java application that computes the shortest path between
 Metro de Madrid stations.
 
+[![CI](https://github.com/jiep/jMetro/actions/workflows/CI.yml/badge.svg)](https://github.com/jiep/jMetro/actions/workflows/CI.yml)
+
 <p align="center">
   <img width="70%" src="./docs/imgs/jmetro.png" />
 </p>
