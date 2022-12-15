@@ -1,8 +1,8 @@
 package com.aebd.jMetro.graphs;
+
 import java.util.LinkedList;
 
 import com.aebd.jMetro.misc.Maths;
-
 
 public abstract class AlgoritmosGrafos {
 
@@ -18,11 +18,11 @@ public abstract class AlgoritmosGrafos {
 			coste = c;
 		}
 
-		public int getVertice(){
+		public int getVertice() {
 			return vertice;
 		}
 
-		public int getCoste(){
+		public int getCoste() {
 			return coste;
 		}
 	}
@@ -42,11 +42,13 @@ public abstract class AlgoritmosGrafos {
 		}
 	}
 
-	public static void tratar(int i) {};
+	public static void tratar(int i) {
+	};
 
 	/**
 	 * Devuelve un conjunto de aristas que forma un arbol de recubrimiento
 	 * de coste minimo del grafo g
+	 * 
 	 * @return un array con las aristas del arbol de recubrimiento de coste
 	 *         minimo
 	 */
@@ -81,9 +83,9 @@ public abstract class AlgoritmosGrafos {
 			// recubrimiento de coste minimo
 			aristas[i - 1] = new Arista();
 			aristas[i - 1].v1 = vertMin;
-			aristas[i - 1].v2 =  costesBajos[vertMin].vertice;
+			aristas[i - 1].v2 = costesBajos[vertMin].vertice;
 			aristas[i - 1].coste = costesBajos[vertMin].coste;
-			conectados[vertMin]  = true;
+			conectados[vertMin] = true;
 
 			// Se recalculan las aristas de coste minimo entre los vertices
 			// conectados y los no conectados teniendo en cuenta el vertice
@@ -101,6 +103,7 @@ public abstract class AlgoritmosGrafos {
 	/**
 	 * Calcula el coste y vertice responsable de cada camino de coste minimo
 	 * deste fuente a cada vertice de g
+	 * 
 	 * @return un array con los costes de los caminos de la fuente a cada
 	 *         vertice
 	 */
@@ -125,8 +128,8 @@ public abstract class AlgoritmosGrafos {
 		// Se calculan los costes minimos desde fuente a
 		// todos los demas vertices
 		for (int j = 0; j < g.vertices() - 1; j++) {
-			//Se determina el nuevo vertice pendiente de coste
-			//minimo desde Fuente
+			// Se determina el nuevo vertice pendiente de coste
+			// minimo desde Fuente
 			int costeMinimo, costeAux, vertCosteMin;
 			costeMinimo = Integer.MAX_VALUE;
 			vertCosteMin = -1;
@@ -166,14 +169,14 @@ public abstract class AlgoritmosGrafos {
 	 * tratandolos y marcandolos como visitados.
 	 */
 	private void avanzarEnProfundidad(
-		Grafo g,
-		int v,
-		boolean[] visitados) {
+			Grafo g,
+			int v,
+			boolean[] visitados) {
 
 		// El vertice v se marca como visitado
 		visitados[v] = true;
 
-		//Se trata el vertice
+		// Se trata el vertice
 		tratar(v);
 
 		// Se examinan los vertices adyacentes a v para
@@ -185,6 +188,7 @@ public abstract class AlgoritmosGrafos {
 
 	/**
 	 * Recorre un grafo en profundidad
+	 * 
 	 * @param g, grafo a recorrer
 	 */
 	public void profundidad(Grafo g) {
@@ -204,6 +208,7 @@ public abstract class AlgoritmosGrafos {
 
 	/**
 	 * Recorre un grafo en amplitud
+	 * 
 	 * @param g, grafo a recorrer
 	 */
 	public static void amplitud(Grafo g) {
@@ -238,7 +243,7 @@ public abstract class AlgoritmosGrafos {
 					// se incorporran a la cola y se marcan.
 					for (int j = 0; j < g.vertices(); j++) {
 						if ((v != j)
-							&& (g.conectados(v, j) && (!visitados[j]))) {
+								&& (g.conectados(v, j) && (!visitados[j]))) {
 							enCurso.addLast(new Integer(j));
 							visitados[j] = true;
 						}
@@ -247,60 +252,56 @@ public abstract class AlgoritmosGrafos {
 			}
 	}
 
-	public static int[][] floyd(GrafoCostes g, int[][] path){
+	public static int[][] floyd(GrafoCostes g, int[][] path) {
 
 		int n = g.vertices();
-	 	int[][] ans = new int[n][n];
+		int[][] ans = new int[n][n];
 
-	 	Maths.copy(ans, g.getCostes());
+		Maths.copy(ans, g.getCostes());
 
-	 	for (int k=0; k<n;k++) {
-	 		for (int i=0; i<n; i++) {
-	     		for (int j=0; j<n;j++) {
-	       			if (ans[i][k]+ans[k][j] < ans[i][j]) {
-	       				ans[i][j] = ans[i][k]+ans[k][j];
-	       				path[i][j] = path[k][j];
-	       			}
-	       		}
-	   		}
-	 	}
+		for (int k = 0; k < n; k++) {
+			for (int i = 0; i < n; i++) {
+				for (int j = 0; j < n; j++) {
+					if (ans[i][k] + ans[k][j] < ans[i][j]) {
+						ans[i][j] = ans[i][k] + ans[k][j];
+						path[i][j] = path[k][j];
+					}
+				}
+			}
+		}
 
 		return ans;
 	}
 
-	public static LinkedList<Integer> rPath(int i, int j, int[][] path){
+	public static LinkedList<Integer> rPath(int i, int j, int[][] path) {
 		LinkedList<Integer> recorrido = new LinkedList<Integer>();
 		recorrido.addFirst(j);
 
-	 	while (path[i][j] != i) {
+		while (path[i][j] != i) {
 			recorrido.addFirst(path[i][j]);
-	 		j = path[i][j];
-	 	}
+			j = path[i][j];
+		}
 
-	 	recorrido.addFirst(i);
+		recorrido.addFirst(i);
 
-	 	return recorrido;
+		return recorrido;
 	}
 
-	public static int[][] calculePath(int [][] ady){
+	public static int[][] calculePath(int[][] ady) {
 
 		int[][] path = new int[ady.length][ady.length];
 
-		for (int i=0; i<ady.length; i++)
-	 		for (int j=0; j<ady.length; j++)
-	 			if (ady[i][j] == Maths.getINFINITO())
-	 				path[i][j] = -1;
-	 			else
-	 				path[i][j] = i;
+		for (int i = 0; i < ady.length; i++)
+			for (int j = 0; j < ady.length; j++)
+				if (ady[i][j] == Maths.getINFINITO())
+					path[i][j] = -1;
+				else
+					path[i][j] = i;
 
-		for (int i=0; i<ady.length; i++)
-	 		path[i][i] = i;
-
+		for (int i = 0; i < ady.length; i++)
+			path[i][i] = i;
 
 		return path;
 	}
-
-
-
 
 }

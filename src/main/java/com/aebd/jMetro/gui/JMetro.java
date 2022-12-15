@@ -28,7 +28,6 @@ public class JMetro extends JFrame {
 
 	private final String ERROR = "Las estaciones de origen y destino no pueden coincidir";
 
-
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table;
@@ -54,7 +53,7 @@ public class JMetro extends JFrame {
 	 * Create the frame.
 	 */
 	public JMetro() {
-		super("JMetro v1.3.1");
+		super("JMetro v1.3.2");
 		this.setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 300);
@@ -69,79 +68,82 @@ public class JMetro extends JFrame {
 		JLabel lblNewLabel = new JLabel("Origen:");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
-		final JComboBox comboBox = new JComboBox(m.getNombreEstaciones());
-
+		final JComboBox<String> comboBox = new JComboBox<>(m.getNombreEstaciones());
 
 		JLabel lblDestino = new JLabel("Destino:");
 		lblDestino.setHorizontalAlignment(SwingConstants.RIGHT);
 
-		final JComboBox comboBox_1 = new JComboBox(m.getNombreEstaciones());
+		final JComboBox<String> comboBox_1 = new JComboBox<>(m.getNombreEstaciones());
 
 		JButton btnNewButton = new JButton("Calcular ruta m\u00EDnima");
 
-
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+				gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addContainerGap()
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(lblDestino, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(comboBox_1, 0, 181, Short.MAX_VALUE)
-								.addComponent(comboBox, 0, 181, Short.MAX_VALUE)))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(57)
-							.addComponent(btnNewButton)))
-					.addContainerGap())
-		);
+								.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_panel.createSequentialGroup()
+												.addContainerGap()
+												.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+														.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE,
+																GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+														.addComponent(lblDestino, GroupLayout.DEFAULT_SIZE,
+																GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+												.addPreferredGap(ComponentPlacement.UNRELATED)
+												.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+														.addComponent(comboBox_1, 0, 181, Short.MAX_VALUE)
+														.addComponent(comboBox, 0, 181, Short.MAX_VALUE)))
+										.addGroup(gl_panel.createSequentialGroup()
+												.addGap(57)
+												.addComponent(btnNewButton)))
+								.addContainerGap()));
 		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(28)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(38)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblDestino)
-						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-					.addGap(33))
-		);
+				gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+								.addGap(28)
+								.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblNewLabel)
+										.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.PREFERRED_SIZE))
+								.addGap(38)
+								.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblDestino)
+										.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+								.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+								.addGap(33)));
 		panel.setLayout(gl_panel);
 
 		JPanel panel_1 = new JPanel();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(12)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 269, GroupLayout.PREFERRED_SIZE)
-					.addGap(12)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 269, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap())
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(12)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+				gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.RELATED))
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(12))
-		);
+								.addGap(12)
+								.addComponent(panel, GroupLayout.PREFERRED_SIZE, 269, GroupLayout.PREFERRED_SIZE)
+								.addGap(12)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+										.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
+												Short.MAX_VALUE)
+										.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 269,
+												GroupLayout.PREFERRED_SIZE))
+								.addContainerGap()));
+		gl_contentPane.setVerticalGroup(
+				gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+								.addGap(12)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+										.addGroup(gl_contentPane.createSequentialGroup()
+												.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 177,
+														GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(ComponentPlacement.UNRELATED)
+												.addComponent(panel_1, GroupLayout.DEFAULT_SIZE,
+														GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+												.addPreferredGap(ComponentPlacement.RELATED))
+										.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.PREFERRED_SIZE))
+								.addGap(12)));
 
 		JLabel lblDistancia = new JLabel("Distancia:");
 
@@ -151,46 +153,41 @@ public class JMetro extends JFrame {
 		JLabel lblMetros = new JLabel("metros");
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_1.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblDistancia)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(labelDist, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblMetros)
-					.addContainerGap(99, Short.MAX_VALUE))
-		);
+				gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_1.createSequentialGroup()
+								.addContainerGap()
+								.addComponent(lblDistancia)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(labelDist, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(lblMetros)
+								.addContainerGap(99, Short.MAX_VALUE)));
 		gl_panel_1.setVerticalGroup(
-			gl_panel_1.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panel_1.createSequentialGroup()
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblDistancia)
-						.addComponent(labelDist)
-						.addComponent(lblMetros))
-					.addContainerGap())
-		);
+				gl_panel_1.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panel_1.createSequentialGroup()
+								.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblDistancia)
+										.addComponent(labelDist)
+										.addComponent(lblMetros))
+								.addContainerGap()));
 		panel_1.setLayout(gl_panel_1);
-
-
-
 
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Estaciones"
-			}
-		) {
+				new Object[][] {
+				},
+				new String[] {
+						"Estaciones"
+				}) {
 			/**
 			 *
 			 */
 			private static final long serialVersionUID = 1L;
 			boolean[] columnEditables = new boolean[] {
-				false
+					false
 			};
+
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
@@ -203,33 +200,32 @@ public class JMetro extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
 				int origen = comboBox.getSelectedIndex();
-				int destino= comboBox_1.getSelectedIndex();
+				int destino = comboBox_1.getSelectedIndex();
 
-				if(origen == destino) {
+				if (origen == destino) {
 					JOptionPane.showMessageDialog(null, ERROR, "ERROR", JOptionPane.WARNING_MESSAGE);
-				}else{
+				} else {
 
 					LinkedList<String> l = m.rutaMinima(origen, destino);
 
-					labelDist.setText("" + m.getDistancia(origen,destino));
+					labelDist.setText("" + m.getDistancia(origen, destino));
 
 					DefaultTableModel modelo = (DefaultTableModel) table.getModel();
 
-					int a = modelo.getRowCount()-1;
-			        for(int i=a; i>=0;i--){
-			            modelo.removeRow(i);
-			        }
+					int a = modelo.getRowCount() - 1;
+					for (int i = a; i >= 0; i--) {
+						modelo.removeRow(i);
+					}
 
-			        String s;
-			        for(int i = 0; i < l.size(); i++){
-			            s = (String) l.get(i);
-			            Object datos[] = {s};
-			            modelo.addRow(datos);
-			        }
+					String s;
+					for (int i = 0; i < l.size(); i++) {
+						s = (String) l.get(i);
+						Object datos[] = { s };
+						modelo.addRow(datos);
+					}
 				}
 			}
 		});
 	}
-
 
 }

@@ -8,9 +8,4 @@ public class GetResource {
 
 		return getClass().getResourceAsStream(s);
 	}
-
-	/*public File getResource(String s) {
-		URL url = getClass().getResource(s);
-	    return new File(url.getFile());
-	}*/
 }
