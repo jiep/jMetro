@@ -27,7 +27,7 @@ jobs:
       run: mvn clean resources:resources assembly:assembly -DdescriptorId=jar-with-dependencies
 
     - name: Set release
-      if: ${{ always() && format('refs/heads/{0}', ) == github.ref }}
+      if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
       run: |
         mv target/jMetro-*-jar-with-dependencies.jar .
         chmod +x ./.github/extract_version
