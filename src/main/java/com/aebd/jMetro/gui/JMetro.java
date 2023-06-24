@@ -53,7 +53,7 @@ public class JMetro extends JFrame {
 	 * Create the frame.
 	 */
 	public JMetro() {
-		super("JMetro v1.3.5");
+		super("JMetro v1.3.6");
 		this.setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 300);
