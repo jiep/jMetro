@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Install Maven
+    - name: Install Maven and Hub
       run: sudo mkdir -p /usr/share/man/man1/ && sudo apt update && sudo apt install -y maven python3 hub
 
     - uses: actions/checkout@v4
