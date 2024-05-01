@@ -32,7 +32,7 @@ java -jar target/jMetro-x.y.jar
 Run the following command:
 
 ```bash
-mvn clean resources:resources assembly:assembly -DdescriptorId=jar-with-dependencies
+mvn clean compile resources:resources assembly:single
 ```
 
 Resulting `jar` is contained in folder `target`.
