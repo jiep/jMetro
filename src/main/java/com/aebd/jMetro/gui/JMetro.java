@@ -1,8 +1,10 @@
 package com.aebd.jMetro.gui;
 
 import java.awt.EventQueue;
+import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Collections;
 import java.util.LinkedList;
 
 import javax.swing.GroupLayout;
@@ -19,6 +21,10 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.UIManager;
+
+import com.formdev.flatlaf.FlatIntelliJLaf;
+import com.formdev.flatlaf.FlatLaf;
 
 import com.aebd.jMetro.metro.Metro;
 
@@ -36,6 +42,16 @@ public class JMetro extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+
+		try {
+			UIManager.setLookAndFeel(new FlatIntelliJLaf());
+			UIManager.put("Button.arc", 999);
+			UIManager.put("Component.arc", 999);
+			UIManager.put("ScrollBar.thumbArc", 999);
+			UIManager.put("ScrollBar.thumbInsets", new Insets(2, 2, 2, 2));
+		} catch(Exception ex) {
+			System.err.println("Failed to initialize LaF");
+		}
 
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
