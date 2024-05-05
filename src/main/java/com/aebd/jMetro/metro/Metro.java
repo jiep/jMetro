@@ -188,7 +188,7 @@ public class Metro {
 		estaciones[146] = new Estacion("Las Suertes");
 		estaciones[147] = new Estacion("Las Tablas");
 		estaciones[148] = new Estacion("Lavapies");
-		estaciones[149] = new Estacion("Leganes Central");
+		estaciones[149] = new Estacion("Leganés Central");
 		estaciones[150] = new Estacion("Legazpi");
 		estaciones[151] = new Estacion("Lista");
 		estaciones[152] = new Estacion("Loranca");
@@ -226,7 +226,7 @@ public class Metro {
 		estaciones[184] = new Estacion("Pan Bendito");
 		estaciones[185] = new Estacion("Parque de las Avenidas");
 		estaciones[186] = new Estacion("Parque de los Estados");
-		estaciones[187] = new Estacion("Parque de Santa Mar�a");
+		estaciones[187] = new Estacion("Parque de Santa María");
 		estaciones[188] = new Estacion("Parque Europa");
 		estaciones[189] = new Estacion("Parque Lisboa");
 		estaciones[190] = new Estacion("Parque Oeste");
