@@ -34,12 +34,6 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/v')
       run: mv target/jMetro-*-jar-with-dependencies.jar .
 
-    - name: Generate attestation
-      if: startsWith(github.ref, 'refs/tags/v')
-      uses: actions/attest-build-provenance@e8998f949152b193b063cb0ec769d69d929409be # v2.4.0
-      with:
-        subject-path: "jMetro-*-jar-with-dependencies.jar"
-
     - name: Set release
       if: startsWith(github.ref, 'refs/tags/v')
       run: |
@@ -50,3 +44,9 @@ jobs:
         gh release create "v$VERSION" ./*.jar --title "v$VERSION" --notes "Release v$VERSION"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Generate attestation
+      if: startsWith(github.ref, 'refs/tags/v')
+      uses: actions/attest-build-provenance@e8998f949152b193b063cb0ec769d69d929409be # v2.4.0
+      with:
+        subject-path: "jMetro-*.jar"
