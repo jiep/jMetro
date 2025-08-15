@@ -11,12 +11,13 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: write
+      
     steps:
-    - name: Install Maven and Hub
-      run: sudo mkdir -p /usr/share/man/man1/ && sudo apt update && sudo apt install -y maven python3 hub
+    - name: Install Maven
+      run: sudo mkdir -p /usr/share/man/man1/ && sudo apt update && sudo apt install -y maven python3
 
     - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
     - name: Set up JDK 8
@@ -35,11 +36,6 @@ jobs:
         VERSION=`./.github/extract_version`
 
         set -x
-        assets=()
-        for asset in ./*.jar; do
-          assets+=("-a" "$asset")
-        done
-  
-        hub release create "${assets[@]}" -m "v$VERSION" "v$VERSION"
+        gh release create "v$VERSION" ./*.jar --title "v$VERSION" --notes "Release v$VERSION"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
