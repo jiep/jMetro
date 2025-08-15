@@ -1,10 +1,5 @@
 name: CI
 
-permissions:
-  id-token: write
-  contents: read
-  attestations: write
-
 on:
   push:
     branches:
