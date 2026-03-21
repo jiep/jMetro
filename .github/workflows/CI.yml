@@ -39,9 +39,17 @@ jobs:
       run: |
         chmod +x ./.github/extract_version
         VERSION=`./.github/extract_version`
+        TAG_VERSION="${GITHUB_REF_NAME#v}"
 
-        set -x
-        gh release create "v$VERSION" ./*.jar --title "v$VERSION" --notes "Release v$VERSION"
+        if [ "$VERSION" != "$TAG_VERSION" ]; then
+          echo "Tag version ($TAG_VERSION) does not match artifact version ($VERSION)."
+          exit 1
+        fi
+
+        gh release create "${GITHUB_REF_NAME}" ./*.jar \
+          --verify-tag \
+          --title "${GITHUB_REF_NAME}" \
+          --generate-notes
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
